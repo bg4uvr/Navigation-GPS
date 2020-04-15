@@ -1,64 +1,37 @@
-/*****************************
+/*********************************
 
 	M8+340128显示GPS解码器
 
 	by BG4UVR	 2007.9.17
-------------------------------
 
-更新记录：
-2007.9.18
-1、初次完成，通过硬件调试已可工作
-2007.9.19 18:23: 
-1、修正速度、航向输出屏蔽无效0位时的对位错误BUG
-2、修正未定位时仍然增加里程的BUG
-2007.9.19 19:22:
-1、完善高度数据处理部分的代码，现可对5位、6位格
-式的高度数据，带小数点与不带小数点的高度数据，带
-负号与不带负号的高度数据，都能正确对齐显示。
-2007.9.20 13:09:
-1、修正上次更新造成的里程表不计数BUG
-2007.9.20 15:36:
-1、修正里程表计数值比实际值放大10倍的错误。
-2007.9.22 12:27
-1、实在无聊，加了一只LED指示GPS的定位状态。没连
-接灭，没定位闪，定位亮。
-2007.9.26 14:51
-1、更改原LCD的上电自复位为MCU软件复位，以降低原
-上电复位对电源上升速率的要求，彻底解决有时上电时
-LCD显示乱的问题。
-2007.9.28 12:45
-1、新增编译变量，支持公英制界面编译。可以编译分别
-编译出公英制显示界面的代码。
-2、改LED的状态为：未连接亮，未定位闪，定位灭
-2007.9.29 8:15
-1、根据朋友要求，更改时间和时间信息从GPRMC语句取得，
-以适合绝大多数的GPS模块。造成的问题是，即使GPS模块
-接有备份电池，启动后未定位前，日期显仍是不正确的。
-不过定位后自动更新，并在重新上电启动前，一直维持正确。
-2007.10.03 15:09
-1、修正上次更新造成的日期显示错误
+*********************************/
 
-*****************************/
 
-#define KM	1		//定义公制还是英制显示 1公制 0英制
+//定义公制还是英制显示 1公制 0英制
+#define KM	1
 
+//include files
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 #include <avr/eeprom.h>
 
 #include "240128.h"
-#include "gps.c"
+#include "gps.h"
 
+//define hardware port
 #define LED			PC4
 #define LED_PORT	PORTC
 #define LED_DDR		DDRC
 
+//
 unsigned int longH __attribute__((section(".eeprom")));
 unsigned int longL __attribute__((section(".eeprom")));
 
+
 void main_init(void);
 void dsp_screen(void);
+
 
 int main(void)
 {
@@ -402,6 +375,7 @@ int main(void)
 	return(0);
 }
 
+
 void main_init(void)
 {
 	glcd_init();			//初始化屏幕
@@ -410,6 +384,7 @@ void main_init(void)
 	LED_DDR|=_BV(LED);
 	LED_PORT&=~_BV(LED);
 }
+
 
 //显示固定位置字符
 void dsp_screen(void)

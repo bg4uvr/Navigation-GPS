@@ -37,7 +37,7 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
 ## Objects that must be built in order to link
-OBJECTS = main.o 240128.o 
+OBJECTS = main.o 240128.o gps.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -50,6 +50,9 @@ main.o: ../main.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 240128.o: ../240128.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+gps.o: ../gps.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link
