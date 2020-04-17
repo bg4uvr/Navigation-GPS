@@ -132,7 +132,7 @@
   
 * 2020.4.14
 
-  * 把AVR Studio完整的工程文件，以及部分说明文件，保存到 [Github](https://github.com/bg4uvr/Navigation-GPS) 和 [Gitee](https://gitee.com/bg4uvr/Navigation-GPS) 
+  * 把AVR Studio完整的工程文件，以及部分说明文件，保存到 [Github](https://github.com/bg4uvr/gps) 和 [Gitee](https://gitee.com/bg4uvr/gps) 
 
     
 
